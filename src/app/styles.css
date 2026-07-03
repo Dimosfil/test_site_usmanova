@@ -542,7 +542,7 @@ h3 {
 .detail-shell {
   display: grid;
   gap: 24px;
-  max-width: 1080px;
+  max-width: 1180px;
   margin: 0 auto;
 }
 
@@ -677,6 +677,246 @@ h3 {
   color: var(--muted);
 }
 
+.detail-metrics,
+.detail-three,
+.detail-offers,
+.detail-assurance-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.detail-metrics article,
+.detail-offer,
+.detail-coach,
+.detail-faq details,
+.detail-assurance-grid article {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.detail-metrics article {
+  display: grid;
+  gap: 6px;
+  min-height: 126px;
+  padding: 24px;
+  align-content: center;
+}
+
+.detail-metrics strong {
+  color: var(--primary);
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 0.95;
+}
+
+.detail-metrics span,
+.detail-section-heading p,
+.detail-panel.compact p,
+.detail-rhythm p,
+.detail-coach-copy p,
+.detail-coach-list p,
+.detail-assurance-grid p,
+.detail-faq p {
+  color: var(--muted);
+}
+
+.detail-section {
+  display: grid;
+  gap: 22px;
+}
+
+.detail-section-heading {
+  max-width: 780px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.detail-section-heading.align-left {
+  margin-left: 0;
+  text-align: left;
+}
+
+.detail-section-heading h2 {
+  margin-bottom: 12px;
+}
+
+.detail-section-heading p:last-child {
+  margin: 0;
+}
+
+.detail-panel.compact {
+  display: grid;
+  gap: 12px;
+  min-height: 250px;
+  align-content: start;
+}
+
+.detail-panel.compact svg {
+  color: var(--primary);
+}
+
+.detail-panel.compact h3,
+.detail-rhythm h3,
+.detail-coach-list h3,
+.detail-assurance-grid h3,
+.detail-offer h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.detail-content-layout,
+.detail-coach {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(320px, 1.1fr);
+  gap: 22px;
+  align-items: stretch;
+}
+
+.detail-rhythm {
+  display: grid;
+  gap: 12px;
+  align-content: center;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.82)),
+    var(--accent-soft);
+}
+
+.detail-rhythm p {
+  margin: 0;
+}
+
+.detail-offers {
+  align-items: stretch;
+}
+
+.detail-offer {
+  display: grid;
+  gap: 16px;
+  padding: 26px;
+}
+
+.detail-offer:nth-child(2) {
+  border-color: color-mix(in srgb, var(--primary) 62%, var(--line));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--primary) 52%, transparent);
+}
+
+.detail-price {
+  display: grid;
+  gap: 4px;
+}
+
+.detail-price strong {
+  color: var(--primary);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  line-height: 1;
+}
+
+.detail-price span {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.detail-price em {
+  width: fit-content;
+  padding: 6px 12px;
+  color: var(--primary-dark);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.detail-offer-button {
+  width: 100%;
+  margin-top: auto;
+}
+
+.detail-coach {
+  padding: 34px;
+  align-items: center;
+  border-color: color-mix(in srgb, var(--accent) 26%, var(--line));
+}
+
+.detail-coach-copy {
+  display: grid;
+  gap: 14px;
+}
+
+.detail-coach-copy h2 {
+  font-size: clamp(1.7rem, 3vw, 2.55rem);
+}
+
+.detail-coach-list {
+  display: grid;
+  gap: 14px;
+}
+
+.detail-coach-list article {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  gap: 12px;
+  padding: 18px;
+  background: var(--surface);
+  border-radius: 18px;
+}
+
+.detail-coach-list svg,
+.detail-assurance-grid svg {
+  color: var(--primary);
+}
+
+.detail-assurance-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.detail-assurance-grid article {
+  display: grid;
+  gap: 10px;
+  padding: 20px;
+  align-content: start;
+}
+
+.detail-faq {
+  display: grid;
+  grid-template-columns: minmax(230px, 0.45fr) minmax(320px, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.detail-faq-list {
+  display: grid;
+  gap: 12px;
+}
+
+.detail-faq details {
+  overflow: hidden;
+}
+
+.detail-faq summary {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 10px;
+  align-items: center;
+  padding: 18px 20px;
+  color: var(--text);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.detail-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.detail-faq summary svg {
+  color: var(--primary);
+}
+
+.detail-faq details p {
+  margin: 0;
+  padding: 0 20px 20px 54px;
+}
+
 .detail-final {
   display: grid;
   gap: 16px;
@@ -688,6 +928,10 @@ h3 {
 .detail-final p {
   max-width: 680px;
   margin: 0;
+}
+
+.detail-final svg {
+  color: var(--primary);
 }
 
 .lead-form {
@@ -1027,7 +1271,14 @@ h3 {
   .catalog-card,
   .detail-hero-card,
   .detail-grid,
-  .detail-summary {
+  .detail-summary,
+  .detail-metrics,
+  .detail-three,
+  .detail-offers,
+  .detail-content-layout,
+  .detail-coach,
+  .detail-assurance-grid,
+  .detail-faq {
     grid-template-columns: 1fr;
   }
 
@@ -1038,6 +1289,10 @@ h3 {
   .program-card-body,
   .catalog-card-copy,
   .detail-hero-copy {
+    padding: 24px;
+  }
+
+  .detail-coach {
     padding: 24px;
   }
 
@@ -1076,7 +1331,23 @@ h3 {
   .picker,
   .trust-panel,
   .guarantee-list,
-  .contact-card {
+  .contact-card,
+  .detail-panel,
+  .detail-offer,
+  .detail-final {
     padding: 20px;
+  }
+
+  .detail-metrics article {
+    min-height: 108px;
+    padding: 20px;
+  }
+
+  .detail-faq summary {
+    padding: 16px;
+  }
+
+  .detail-faq details p {
+    padding: 0 16px 18px 50px;
   }
 }

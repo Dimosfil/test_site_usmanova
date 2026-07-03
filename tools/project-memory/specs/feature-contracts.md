@@ -33,7 +33,14 @@ the same scoped change when the behavior intentionally changes.
   `#program/<program-id>` so a detail view can be opened directly in the
   static prototype without adding a router dependency.
 - Each detail page has a hero card, target-user list, included-content list,
-  format/result/support summary, return action, and CTA to the lead form.
+  format/result/support summary, metrics, outcome cards, contents/rhythm block,
+  three offer packages, objection-handling comparison, coach-trust block,
+  assurances, FAQ, return action, and CTA to the lead form.
+- The shared detail-page template should preserve the reference landing arc:
+  promise, proof, contents, offers, objection handling, trainer trust,
+  guarantees, FAQ, and final CTA. Program-specific pages inherit this structure
+  while keeping their own title, summary, target audience, includes, format,
+  result, and support copy.
 - The detail-page CTA returns to the landing page, scrolls to the lead form,
   and keeps the selected program reflected in the form's read-only program
   field.
