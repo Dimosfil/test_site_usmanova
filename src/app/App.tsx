@@ -249,6 +249,10 @@ export function App() {
     navigateToSection("form");
   }
 
+  function showProgramOffers() {
+    navigateToSection("offers");
+  }
+
   function applySiteSettings(settings: SavedSiteSettings) {
     setSavedSettings(settings);
     saveSettings(settings);
@@ -272,7 +276,12 @@ export function App() {
       />
       {activeProgramData ? (
         <div className="page-view" key={`program-${activeProgramData.id}`}>
-          <ProgramDetailPage program={activeProgramData} onBack={returnToPrograms} onChoose={chooseProgramFromDetails} />
+          <ProgramDetailPage
+            program={activeProgramData}
+            onBack={returnToPrograms}
+            onChoose={chooseProgramFromDetails}
+            onShowOffers={showProgramOffers}
+          />
         </div>
       ) : (
         <div className="page-view" key="landing">

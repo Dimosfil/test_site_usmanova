@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   ArrowLeft,
   BadgePercent,
@@ -22,13 +23,78 @@ import {
 } from "../shared/config/siteContent";
 import { Button } from "../shared/ui/Button";
 
+const offerCountdownStorageKey = "sasha-fit-offer-deadline";
+const offerCountdownDuration = ((3 * 24 + 6) * 60 + 12) * 60 * 1000;
+
+function getStoredOfferDeadline() {
+  const fallbackDeadline = Date.now() + offerCountdownDuration;
+
+  if (typeof window === "undefined") {
+    return fallbackDeadline;
+  }
+
+  const savedDeadline = Number(window.localStorage.getItem(offerCountdownStorageKey));
+
+  if (Number.isFinite(savedDeadline) && savedDeadline > Date.now()) {
+    return savedDeadline;
+  }
+
+  window.localStorage.setItem(offerCountdownStorageKey, String(fallbackDeadline));
+  return fallbackDeadline;
+}
+
+function getCountdownParts(deadline: number) {
+  const secondsLeft = Math.max(0, Math.floor((deadline - Date.now()) / 1000));
+  const days = Math.floor(secondsLeft / 86400);
+  const hours = Math.floor((secondsLeft % 86400) / 3600);
+  const minutes = Math.floor((secondsLeft % 3600) / 60);
+  const seconds = secondsLeft % 60;
+
+  return { days, hours, minutes, seconds };
+}
+
+function formatTimerUnit(value: number) {
+  return String(value).padStart(2, "0");
+}
+
+function OfferCountdown() {
+  const [deadline, setDeadline] = useState(getStoredOfferDeadline);
+  const [countdown, setCountdown] = useState(() => getCountdownParts(deadline));
+
+  useEffect(() => {
+    const timerId = window.setInterval(() => {
+      const nextDeadline = deadline > Date.now() ? deadline : Date.now() + offerCountdownDuration;
+
+      if (nextDeadline !== deadline) {
+        window.localStorage.setItem(offerCountdownStorageKey, String(nextDeadline));
+        setDeadline(nextDeadline);
+      }
+
+      setCountdown(getCountdownParts(nextDeadline));
+    }, 1000);
+
+    return () => window.clearInterval(timerId);
+  }, [deadline]);
+
+  return (
+    <div className="detail-countdown" aria-live="polite">
+      <p>Успейте забрать тренировки со скидкой до 82%</p>
+      <strong>
+        {countdown.days} дня {formatTimerUnit(countdown.hours)}:{formatTimerUnit(countdown.minutes)}:
+        {formatTimerUnit(countdown.seconds)}
+      </strong>
+    </div>
+  );
+}
+
 type ProgramDetailPageProps = {
   program: Program;
   onBack: () => void;
   onChoose: () => void;
+  onShowOffers: () => void;
 };
 
-export function ProgramDetailPage({ program, onBack, onChoose }: ProgramDetailPageProps) {
+export function ProgramDetailPage({ program, onBack, onChoose, onShowOffers }: ProgramDetailPageProps) {
   const detail = findProgramDetails(program.id);
   const Icon = program.Icon;
 
@@ -55,11 +121,12 @@ export function ProgramDetailPage({ program, onBack, onChoose }: ProgramDetailPa
               <h1>{detail.headline}</h1>
               <p className="detail-intro">{detail.intro}</p>
               <div className="detail-actions">
-                <Button onClick={onChoose}>Подобрать эту программу</Button>
+                <Button onClick={onShowOffers}>Получить</Button>
                 <Button variant="secondary" onClick={onBack}>
                   Смотреть другие
                 </Button>
               </div>
+              <OfferCountdown />
             </div>
           </article>
 
