@@ -26,10 +26,17 @@ the same scoped change when the behavior intentionally changes.
   should cover at least: home training, gym training, nutrition, glutes/core,
   return after a break, express start, self-love, and mobility/posture.
 - Program cards are clickable through their action button.
-- Selecting a program updates the app-level selected program state.
-- The selected program is reflected in the lead form's read-only program field.
-- Selecting a program scrolls the user to the lead form.
-- The selected card must have a visible selected state.
+- The primary action on every program card is `Подробнее`, not `Выбрать`.
+- Clicking `Подробнее` opens a program-specific detail page built from the
+  shared detail-page template and updates the app-level selected program state.
+- Program detail pages are addressable through hash routes formatted as
+  `#program/<program-id>` so a detail view can be opened directly in the
+  static prototype without adding a router dependency.
+- Each detail page has a hero card, target-user list, included-content list,
+  format/result/support summary, return action, and CTA to the lead form.
+- The detail-page CTA returns to the landing page, scrolls to the lead form,
+  and keeps the selected program reflected in the form's read-only program
+  field.
 
 ## Lead Form
 

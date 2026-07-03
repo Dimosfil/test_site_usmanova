@@ -1,18 +1,17 @@
-import { Check } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import type { Program } from "../../shared/config/siteContent";
 import { Button } from "../../shared/ui/Button";
 
 type ProgramCardProps = {
   program: Program;
-  isSelected: boolean;
-  onSelect: () => void;
+  onOpen: () => void;
 };
 
-export function ProgramCard({ program, isSelected, onSelect }: ProgramCardProps) {
+export function ProgramCard({ program, onOpen }: ProgramCardProps) {
   const Icon = program.Icon;
 
   return (
-    <article className={`program-card ${isSelected ? "is-selected" : ""}`}>
+    <article className="program-card">
       <div className="program-card-media">
         <img src={program.image} alt={program.imageAlt} />
       </div>
@@ -23,9 +22,9 @@ export function ProgramCard({ program, isSelected, onSelect }: ProgramCardProps)
         </p>
         <h3>{program.title}</h3>
         <p>{program.summary}</p>
-        <Button className="card-action" variant="card" onClick={onSelect}>
-          {isSelected ? <Check size={18} aria-hidden /> : null}
-          {isSelected ? "Выбрано" : "Выбрать"}
+        <Button className="card-action" variant="card" onClick={onOpen}>
+          Подробнее
+          <ArrowRight size={18} aria-hidden />
         </Button>
       </div>
     </article>

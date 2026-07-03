@@ -5,19 +5,10 @@ import { SectionHeading } from "../shared/ui/SectionHeading";
 
 type ProgramsSectionProps = {
   selectedProgram: ProgramId;
-  onProgramSelect: (program: ProgramId) => void;
+  onProgramOpen: (program: ProgramId) => void;
 };
 
-function scrollToForm() {
-  document.querySelector("#form")?.scrollIntoView({ behavior: "smooth", block: "start" });
-}
-
-export function ProgramsSection({ selectedProgram, onProgramSelect }: ProgramsSectionProps) {
-  function handleProgramSelect(program: ProgramId) {
-    onProgramSelect(program);
-    scrollToForm();
-  }
-
+export function ProgramsSection({ selectedProgram, onProgramOpen }: ProgramsSectionProps) {
   return (
     <section className="programs section" id="programs">
       <SectionHeading eyebrow="Программы" title="Выберите направление под вашу цель">
@@ -29,8 +20,7 @@ export function ProgramsSection({ selectedProgram, onProgramSelect }: ProgramsSe
           <ProgramCard
             key={program.id}
             program={program}
-            isSelected={selectedProgram === program.id}
-            onSelect={() => handleProgramSelect(program.id)}
+            onOpen={() => onProgramOpen(program.id)}
           />
         ))}
       </div>
