@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Саша Белоконова | Фитнес-программы</title>
+    <meta
+      name="description"
+      content="Лендинг фитнес-тренера Саши Белоконовой: программы тренировок, питание и подбор курса под цель."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-theme="teal">
+    <header class="site-header" aria-label="Главная навигация">
+      <a class="brand" href="#top" aria-label="Саша Белоконова, на первый экран">
+        <span class="brand-mark">SB</span>
+        <span>Саша Белоконова</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Разделы сайта">
+        <a href="#trust">Опыт</a>
+        <a href="#programs">Программы</a>
+        <a href="#form">Подбор</a>
+      </nav>
+
+      <div class="theme-switcher" aria-label="Выбор цветовой темы">
+        <button class="theme-chip is-active" type="button" data-theme-option="teal" aria-pressed="true">
+          <span class="swatch swatch-teal"></span>
+          Teal
+        </button>
+        <button class="theme-chip" type="button" data-theme-option="rose" aria-pressed="false">
+          <span class="swatch swatch-rose"></span>
+          Rose
+        </button>
+        <button class="theme-chip" type="button" data-theme-option="lime" aria-pressed="false">
+          <span class="swatch swatch-lime"></span>
+          Lime
+        </button>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero section">
+        <div class="hero-copy">
+          <p class="eyebrow">Фитнес без голода и перегруза</p>
+          <h1>Приведите тело в форму с тренером Сашей Белоконовой</h1>
+          <p class="lead">
+            Тренировки дома и в зале, питание без жестких запретов и понятная система прогресса под вашу цель.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#programs">Выбрать программу</a>
+            <button class="button secondary" type="button" data-open-picker>Быстрый подбор</button>
+          </div>
+          <p class="microcopy">Ответ на заявку появится прямо на странице. Никаких внешних сервисов.</p>
+        </div>
+
+        <div class="hero-visual" aria-label="Фото тренера Саши Белоконовой">
+          <img src="assets/hero-sasha-crop.png" alt="Фитнес-тренер выполняет выпад с гантелью" />
+        </div>
+      </section>
+
+      <section class="trust section" id="trust">
+        <div class="section-heading">
+          <p class="eyebrow">Почему доверяют</p>
+          <h2>Спокойная система вместо хаотичных марафонов</h2>
+          <p>
+            Саша собирает план так, чтобы тренировки вписывались в неделю, питание оставалось нормальной жизнью,
+            а результат было видно по самочувствию, силе и объемам.
+          </p>
+        </div>
+
+        <div class="trust-grid">
+          <article class="trust-panel">
+            <ul class="proof-list">
+              <li>
+                <span>01</span>
+                Сертифицированный тренер по силовой и функциональной подготовке.
+              </li>
+              <li>
+                <span>02</span>
+                Подбирает нагрузку под уровень: новичок, возвращение после паузы, зал или дом.
+              </li>
+              <li>
+                <span>03</span>
+                Дает простую структуру питания без запретов и подсчета каждой крошки.
+              </li>
+              <li>
+                <span>04</span>
+                Делает акцент на технику, восстановление и устойчивый режим.
+              </li>
+            </ul>
+          </article>
+
+          <div class="photo-strip" aria-label="Фото о подходе тренера">
+            <figure>
+              <img src="assets/program-home.png" alt="Тренировка с фитнес-резинкой в светлой студии" />
+              <figcaption>Домашние тренировки</figcaption>
+            </figure>
+            <figure>
+              <img src="assets/program-food.png" alt="Сбалансированный обед, бутылка воды и тренировочная резинка" />
+              <figcaption>Питание без крайностей</figcaption>
+            </figure>
+            <figure>
+              <img src="assets/program-gym.png" alt="Тренировка с гантелями в современном зале" />
+              <figcaption>Силовой прогресс</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="programs section" id="programs">
+        <div class="section-heading align-left">
+          <p class="eyebrow">Что выбрать</p>
+          <h2>Три направления под разные цели</h2>
+          <p>Каждая карточка выбирается кликом и сразу переносит программу в форму подбора.</p>
+        </div>
+
+        <div class="program-grid" aria-label="Список программ">
+          <article class="program-card">
+            <img src="assets/program-home.png" alt="Упражнение с фитнес-резинкой" />
+            <div class="program-card-body">
+              <p class="tag">4 недели</p>
+              <h3>Тело дома</h3>
+              <p>Короткие тренировки 25-35 минут, ягодицы, живот, осанка и легкое кардио без оборудования.</p>
+              <button class="button card-action" type="button" data-program="Тело дома">Выбрать</button>
+            </div>
+          </article>
+
+          <article class="program-card">
+            <img src="assets/program-gym.png" alt="Тренировка с гантелями в зале" />
+            <div class="program-card-body">
+              <p class="tag">6 недель</p>
+              <h3>Сила и форма</h3>
+              <p>План для зала: техника базовых движений, прогрессия веса и уверенная работа с тренажерами.</p>
+              <button class="button card-action" type="button" data-program="Сила и форма">Выбрать</button>
+            </div>
+          </article>
+
+          <article class="program-card">
+            <img src="assets/program-food.png" alt="Здоровое питание и план тренировок" />
+            <div class="program-card-body">
+              <p class="tag">3 недели</p>
+              <h3>Режим питания</h3>
+              <p>Мягкая настройка рациона, простые тарелки, список покупок и привычки, которые держатся.</p>
+              <button class="button card-action" type="button" data-program="Режим питания">Выбрать</button>
+            </div>
+          </article>
+        </div>
+
+        <div class="picker" id="form">
+          <div class="picker-copy">
+            <p class="eyebrow">Быстрый подбор</p>
+            <h2>Не знаете, с чего начать?</h2>
+            <p>
+              Оставьте цель и удобный формат. Форма работает в прототипе: проверяет поля, сохраняет выбранную
+              программу и показывает подтверждение.
+            </p>
+          </div>
+
+          <form class="lead-form" novalidate>
+            <label>
+              Имя
+              <input name="name" type="text" placeholder="Например, Аня" autocomplete="name" required />
+            </label>
+
+            <label>
+              Телефон или Telegram
+              <input name="contact" type="text" placeholder="+7 или @username" autocomplete="tel" required />
+            </label>
+
+            <label>
+              Цель
+              <select name="goal" required>
+                <option value="">Выберите цель</option>
+                <option>Похудеть без жесткой диеты</option>
+                <option>Подтянуть живот и ягодицы</option>
+                <option>Вернуться к тренировкам после паузы</option>
+                <option>Разобраться с питанием</option>
+              </select>
+            </label>
+
+            <label>
+              Интересующая программа
+              <input name="program" type="text" value="Тело дома" required />
+            </label>
+
+            <fieldset>
+              <legend>Где удобнее тренироваться?</legend>
+              <label class="radio-row">
+                <input type="radio" name="place" value="Дом" checked />
+                Дома
+              </label>
+              <label class="radio-row">
+                <input type="radio" name="place" value="Зал" />
+                В зале
+              </label>
+              <label class="radio-row">
+                <input type="radio" name="place" value="Смешанный формат" />
+                Смешанно
+              </label>
+            </fieldset>
+
+            <button class="button primary form-submit" type="submit">Получить подбор</button>
+            <p class="form-message" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Концепт лендинга для Саши Белоконовой. Собрано как статический HTML/CSS/JS-прототип.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
