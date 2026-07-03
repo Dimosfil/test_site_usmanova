@@ -7,11 +7,11 @@ behavior as the full instruction kit.
 
 ## Project
 
-Static landing page prototype for fitness coach Sasha Belokonova. The product
-surface is `index.html` with local CSS, JavaScript, and generated image assets.
-It is intended to demonstrate three responsive landing-page screens inspired by
-the referenced Usmanova Fit page while using original copy and generated visual
-content.
+Vite/React landing app prototype for fitness coach Sasha Belokonova. The product
+surface is a responsive single-page app under `src/` with generated image
+assets served from `public/assets/`. It demonstrates three landing-page screens
+inspired by the referenced Usmanova Fit page while using original copy and
+generated visual content.
 
 ## Project Goal
 
@@ -131,25 +131,25 @@ troubleshooting there.
 Install dependencies:
 
 ```powershell
-# No install step is required for the static site.
+npm install
 ```
 
 Run:
 
 ```powershell
-Start-Process .\index.html
+npm run dev
 ```
 
 Test:
 
 ```powershell
-# Manual smoke: open index.html, switch themes, select a program, submit the form.
+# Manual smoke: open the Vite URL, switch themes, select a program, submit the form.
 ```
 
 Build:
 
 ```powershell
-# No build step is required.
+npm run build
 ```
 
 Inspect logs:
@@ -160,7 +160,7 @@ Inspect logs:
 
 ## Working Areas
 
-- Source: root `index.html`, `styles.css`, `script.js`, and `assets/`
+- Source: root `index.html`, `src/`, and `public/assets/`
 - Tests: no persistent automated tests yet; use browser smoke checks
 - Tools: `tools/`
 - Summaries: `tools/summary/`

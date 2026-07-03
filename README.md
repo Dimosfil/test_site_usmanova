@@ -1,25 +1,34 @@
-# Sasha Belokonova Landing Page
+# Sasha Belokonova Fit App
 
-Static responsive landing page prototype for fitness coach Sasha Belokonova.
+Responsive Vite/React prototype for fitness coach Sasha Belokonova.
 
 For AI agents: read `AGENTS.md` first.
 
-## Run
+Stack inventory: `tools/project-memory/specs/technology-stack.md`.
 
-Open `index.html` in a browser:
+## Install
 
 ```powershell
-Start-Process .\index.html
+npm install
+```
+
+## Run
+
+```powershell
+npm run dev
 ```
 
 ## Contents
 
-- `index.html`: page structure.
-- `styles.css`: responsive layout and color themes.
-- `script.js`: theme switching, program selection, and form behavior.
-- `assets/`: generated visual content used by the landing page.
+- `src/app/`: application shell and global styles.
+- `src/widgets/`: page sections.
+- `src/features/`: interactive feature components.
+- `src/entities/`: reusable domain entities.
+- `src/shared/`: shared configuration and UI primitives.
+- `public/assets/`: generated visual content used by the app.
 
 ## Smoke Check
 
-Open the page, switch color themes, click a program card, and submit the form
-with sample contact data. The form should validate and show a success message.
+Run the dev server, open the local Vite URL, switch color themes, click a
+program card, and submit the form with sample contact data. The form should
+validate and show a success message.

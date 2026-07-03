@@ -11,30 +11,31 @@ stack facts, commands, runtime assumptions, and operational notes here.
 
 ## Summary
 
-- Primary stack: static HTML, CSS, and vanilla JavaScript.
-- Runtime model: local browser file open, no backend.
+- Primary stack: Vite, React, TypeScript, CSS, and lucide-react icons.
+- Runtime model: local Vite dev server, no backend.
 - Current confidence: verified from repository files.
 
 ## Components
 
 | Layer | Technology | Evidence | Notes |
 | --- | --- | --- | --- |
-| Language/runtime | HTML, CSS, JavaScript | `index.html`, `styles.css`, `script.js` | Browser runtime only |
-| Frontend | Static responsive landing page | `index.html` | No framework |
+| Language/runtime | TypeScript, JSX, CSS | `src/`, `tsconfig*.json` | Browser runtime through Vite |
+| Frontend | React app | `src/main.tsx`, `src/app/App.tsx` | Componentized app structure |
 | Backend/API | None | No server files present | Form is client-side prototype behavior |
-| Data/storage | None | No data files or database required | Images live in `assets/` |
-| Build/package | None | `README.md` run command | No bundler |
-| Test/quality | Manual smoke checks | `tools/AGENT_RUNBOOK.md` | Previous Playwright smoke was temporary |
-| Deployment/runtime | Static file hosting or local browser | `index.html` | Can be hosted as plain static assets |
+| Data/storage | None | No data files or database required | Images live in `public/assets/` |
+| Build/package | Vite | `package.json`, `vite.config.ts` | Builds static output into `dist/` |
+| Test/quality | TypeScript build and manual smoke checks | `package.json`, `tools/AGENT_RUNBOOK.md` | No persistent browser test yet |
+| Icons | lucide-react | `package.json`, `src/` imports | Used for button and card affordances |
+| Deployment/runtime | Static hosting after Vite build | `npm run build` | Serve generated `dist/` output |
 
 ## Commands
 
 | Purpose | Command | Evidence |
 | --- | --- | --- |
-| Install | No install required | `AGENTS.md` |
-| Run | `Start-Process .\index.html` | `README.md` |
+| Install | `npm install` | `README.md` |
+| Run | `npm run dev` | `README.md` |
 | Test | Manual browser smoke | `tools/AGENT_RUNBOOK.md` |
-| Build | No build required | `AGENTS.md` |
+| Build | `npm run build` | `package.json` |
 
 ## External Services
 
@@ -45,3 +46,4 @@ stack facts, commands, runtime assumptions, and operational notes here.
 ## Gaps
 
 - No persistent automated browser test is committed.
+- No backend or production deployment contract is configured.

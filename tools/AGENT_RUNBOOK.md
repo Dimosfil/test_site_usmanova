@@ -5,20 +5,21 @@ Every command should be copy-pasteable from the project root.
 ## Install
 
 ```powershell
-# No install step is required for the static site.
+npm install
 ```
 
 ## Run
 
 ```powershell
-Start-Process .\index.html
+npm run dev
 ```
 
 ## Test
 
 ```powershell
 # Browser smoke check:
-# 1. Open index.html.
+# 1. Run npm run dev.
+# 2. Open the local Vite URL.
 # 2. Switch each color theme.
 # 3. Click a program card and confirm the form program field changes.
 # 4. Submit the form with valid sample data and confirm the success message.
@@ -27,13 +28,13 @@ Start-Process .\index.html
 ## Build
 
 ```powershell
-# No build step is required.
+npm run build
 ```
 
 ## Smoke Check
 
 ```powershell
-Start-Process .\index.html
+npm run dev
 ```
 
 Expected result:
@@ -51,6 +52,6 @@ select programs, and the form validates then shows a success message.
 
 ## Environment Notes
 
-- Main runtime is a browser opening local files.
-- Generated visual assets live in `assets/` and are project content, not
+- Main runtime is the Vite dev server and browser.
+- Generated visual assets live in `public/assets/` and are project content, not
   rebuildable cache.
