@@ -1,45 +1,105 @@
-import { ThemeSwitcher } from "../features/theme-switcher/ThemeSwitcher";
-import type { ThemeId } from "../shared/config/siteContent";
+import { SiteSettingsMenu } from "../features/site-settings/SiteSettingsMenu";
+import type { LogoId, ThemeId } from "../shared/config/siteContent";
+import { logos } from "../shared/config/siteContent";
 
 type HeaderProps = {
+  activeLogo: LogoId;
   activeTheme: ThemeId;
-  onThemeChange: (theme: ThemeId) => void;
-  onNavigateHome?: () => void;
+  savedLogo: LogoId;
+  savedTheme: ThemeId;
+  onLogoPreview: (logo: LogoId) => void;
+  onSettingsSave: (settings: { logo: LogoId; theme: ThemeId }) => void;
+  onThemePreview: (theme: ThemeId) => void;
+  onNavigateSection: (sectionId: string) => void;
+  onNavigatePrograms: () => void;
+  isProgramDetail?: boolean;
 };
 
-export function Header({ activeTheme, onThemeChange, onNavigateHome }: HeaderProps) {
+const landingNavItems = [
+  { id: "trust", label: "Опыт" },
+  { id: "programs", label: "Программы" },
+  { id: "nutrition", label: "Питание" },
+  { id: "about", label: "О себе" },
+  { id: "guarantees", label: "Гарантии" },
+  { id: "contacts", label: "Контакты" },
+  { id: "form", label: "Подбор" },
+];
+
+const detailNavItems = [
+  { id: "top", label: "Обзор" },
+  { id: "detail-fit", label: "Кому" },
+  { id: "detail-contents", label: "Внутри" },
+  { id: "offers", label: "Форматы" },
+  { id: "detail-system", label: "Система" },
+  { id: "detail-coach", label: "Тренер" },
+  { id: "detail-faq", label: "Вопросы" },
+];
+
+export function Header({
+  activeLogo,
+  activeTheme,
+  savedLogo,
+  savedTheme,
+  onLogoPreview,
+  onSettingsSave,
+  onThemePreview,
+  onNavigateSection,
+  onNavigatePrograms,
+  isProgramDetail = false,
+}: HeaderProps) {
+  const navItems = isProgramDetail ? detailNavItems : landingNavItems;
+  const logo = logos.find((item) => item.id === activeLogo) ?? logos[0];
+
   return (
     <header className="site-header" aria-label="Главная навигация">
-      <a className="brand" href="#top" aria-label="Саша Белоконова, на первый экран" onClick={onNavigateHome}>
-        <span className="brand-mark">SB</span>
+      <a
+        className="brand"
+        href="#top"
+        aria-label="Саша Белоконова, на первый экран"
+        onClick={(event) => {
+          event.preventDefault();
+          onNavigateSection("top");
+        }}
+      >
+        <span className={`brand-mark logo-mark logo-${logo.id}`}>{logo.mark}</span>
         <span>Саша Белоконова</span>
       </a>
 
       <nav className="main-nav" aria-label="Разделы сайта">
-        <a href="#trust" onClick={onNavigateHome}>
-          Опыт
-        </a>
-        <a href="#programs" onClick={onNavigateHome}>
-          Программы
-        </a>
-        <a href="#nutrition" onClick={onNavigateHome}>
-          Питание
-        </a>
-        <a href="#about" onClick={onNavigateHome}>
-          О себе
-        </a>
-        <a href="#guarantees" onClick={onNavigateHome}>
-          Гарантии
-        </a>
-        <a href="#contacts" onClick={onNavigateHome}>
-          Контакты
-        </a>
-        <a href="#form" onClick={onNavigateHome}>
-          Подбор
-        </a>
+        {isProgramDetail ? (
+          <a
+            href="#programs"
+            onClick={(event) => {
+              event.preventDefault();
+              onNavigatePrograms();
+            }}
+          >
+            Программы
+          </a>
+        ) : null}
+        {navItems.map((item) => (
+          <a
+            href={`#${item.id}`}
+            key={item.id}
+            onClick={(event) => {
+              event.preventDefault();
+              onNavigateSection(item.id);
+            }}
+          >
+            {item.label}
+          </a>
+        ))}
       </nav>
 
-      <ThemeSwitcher activeTheme={activeTheme} onThemeChange={onThemeChange} />
+      <SiteSettingsMenu
+        activeLogo={activeLogo}
+        activeTheme={activeTheme}
+        savedLogo={savedLogo}
+        savedTheme={savedTheme}
+        onLogoPreview={onLogoPreview}
+        onSave={onSettingsSave}
+        onThemePreview={onThemePreview}
+      />
     </header>
   );
 }

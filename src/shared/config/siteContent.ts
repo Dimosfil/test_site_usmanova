@@ -2,6 +2,7 @@ import { BadgePercent, Clock, Dumbbell, Home, Info, ReceiptText, Salad, Smile, S
 import type { ComponentType } from "react";
 
 export type ThemeId = "rose" | "teal" | "lime" | "sky" | "mono";
+export type LogoId = "core" | "pulse" | "line" | "studio" | "flow";
 export type ProgramId =
   | "home-body"
   | "strength-shape"
@@ -74,6 +75,14 @@ export const themes: Array<{ id: ThemeId; label: string }> = [
   { id: "lime", label: "Lime" },
   { id: "sky", label: "Sky" },
   { id: "mono", label: "Mono" },
+];
+
+export const logos: Array<{ id: LogoId; label: string; mark: string }> = [
+  { id: "core", label: "Core SB", mark: "SB" },
+  { id: "pulse", label: "Pulse", mark: "S" },
+  { id: "line", label: "Line", mark: "SB" },
+  { id: "studio", label: "Studio", mark: "СБ" },
+  { id: "flow", label: "Flow", mark: "S" },
 ];
 
 export const programs: Program[] = [

@@ -1,11 +1,11 @@
 import { ClipboardList } from "lucide-react";
 import { Button } from "../shared/ui/Button";
 
-function scrollToForm() {
-  document.querySelector("#form")?.scrollIntoView({ behavior: "smooth", block: "start" });
-}
+type HeroSectionProps = {
+  onNavigateSection: (sectionId: string) => void;
+};
 
-export function HeroSection() {
+export function HeroSection({ onNavigateSection }: HeroSectionProps) {
   return (
     <section className="hero section">
       <div className="hero-copy">
@@ -17,10 +17,17 @@ export function HeroSection() {
           жестких запретов - подберем спокойный план под вашу цель.
         </p>
         <div className="hero-actions">
-          <a className="button primary" href="#programs">
+          <a
+            className="button primary"
+            href="#programs"
+            onClick={(event) => {
+              event.preventDefault();
+              onNavigateSection("programs");
+            }}
+          >
             Выбрать программу
           </a>
-          <Button variant="secondary" onClick={scrollToForm}>
+          <Button variant="secondary" onClick={() => onNavigateSection("form")}>
             <ClipboardList size={18} aria-hidden />
             Быстрый подбор
           </Button>

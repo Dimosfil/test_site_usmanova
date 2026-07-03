@@ -1,6 +1,10 @@
 import { legalLinks, socialLinks } from "../shared/config/siteContent";
 
-export function Footer() {
+type FooterProps = {
+  onNavigateSection: (sectionId: string) => void;
+};
+
+export function Footer({ onNavigateSection }: FooterProps) {
   return (
     <footer className="site-footer">
       <div className="footer-copy">
@@ -13,7 +17,14 @@ export function Footer() {
 
       <nav className="footer-links" aria-label="Юридическая информация">
         {legalLinks.map((link) => (
-          <a href="#contacts" key={link}>
+          <a
+            href="#contacts"
+            key={link}
+            onClick={(event) => {
+              event.preventDefault();
+              onNavigateSection("contacts");
+            }}
+          >
             {link}
           </a>
         ))}
@@ -21,7 +32,19 @@ export function Footer() {
 
       <div className="footer-socials" aria-label="Социальные сети">
         {socialLinks.slice(0, 3).map((link) => (
-          <a className={`footer-social social-${link.short.toLowerCase()}`} href={link.href} key={link.label}>
+          <a
+            className={`footer-social social-${link.short.toLowerCase()}`}
+            href={link.href}
+            key={link.label}
+            onClick={(event) => {
+              if (!link.href.startsWith("#")) {
+                return;
+              }
+
+              event.preventDefault();
+              onNavigateSection(link.href.slice(1));
+            }}
+          >
             {link.short}
           </a>
         ))}

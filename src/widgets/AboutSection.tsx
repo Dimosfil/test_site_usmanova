@@ -2,7 +2,11 @@ import { selfLoveCards } from "../shared/config/siteContent";
 import { CatalogCard } from "../shared/ui/CatalogCard";
 import { SectionHeading } from "../shared/ui/SectionHeading";
 
-export function AboutSection() {
+type AboutSectionProps = {
+  onNavigateSection: (sectionId: string) => void;
+};
+
+export function AboutSection({ onNavigateSection }: AboutSectionProps) {
   return (
     <section className="catalog-section section" id="about">
       <SectionHeading eyebrow="О себе" title="Любовь к себе как часть формы">
@@ -11,7 +15,7 @@ export function AboutSection() {
 
       <div className="catalog-stack">
         {selfLoveCards.map((card) => (
-          <CatalogCard key={card.title} card={card} />
+          <CatalogCard key={card.title} card={card} onNavigateSection={onNavigateSection} />
         ))}
       </div>
     </section>

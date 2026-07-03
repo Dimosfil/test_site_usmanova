@@ -3,9 +3,10 @@ import type { CatalogCard as CatalogCardData } from "../config/siteContent";
 type CatalogCardProps = {
   card: CatalogCardData;
   featured?: boolean;
+  onNavigateSection: (sectionId: string) => void;
 };
 
-export function CatalogCard({ card, featured = false }: CatalogCardProps) {
+export function CatalogCard({ card, featured = false, onNavigateSection }: CatalogCardProps) {
   return (
     <article className={`catalog-card ${featured ? "is-featured" : ""}`}>
       <div className="catalog-card-media">
@@ -16,7 +17,14 @@ export function CatalogCard({ card, featured = false }: CatalogCardProps) {
         <h3>{card.title}</h3>
         <p>{card.summary}</p>
         {card.details ? <p className="muted-copy">{card.details}</p> : null}
-        <a className="button card catalog-link" href="#form">
+        <a
+          className="button card catalog-link"
+          href="#form"
+          onClick={(event) => {
+            event.preventDefault();
+            onNavigateSection("form");
+          }}
+        >
           Подробнее
         </a>
       </div>

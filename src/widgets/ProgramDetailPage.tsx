@@ -63,7 +63,7 @@ export function ProgramDetailPage({ program, onBack, onChoose }: ProgramDetailPa
             </div>
           </article>
 
-          <div className="detail-grid">
+          <div className="detail-grid" id="detail-fit">
             <section className="detail-panel">
               <div className="detail-panel-title">
                 <Target size={22} aria-hidden />
@@ -142,7 +142,7 @@ export function ProgramDetailPage({ program, onBack, onChoose }: ProgramDetailPa
             </div>
           </section>
 
-          <section className="detail-section detail-contents">
+          <section className="detail-section detail-contents" id="detail-contents">
             <div className="detail-section-heading align-left">
               <p className="eyebrow">Внутри маршрута</p>
               <h2>Все для результата собрано заранее</h2>
@@ -211,7 +211,7 @@ export function ProgramDetailPage({ program, onBack, onChoose }: ProgramDetailPa
             </div>
           </section>
 
-          <section className="detail-section">
+          <section className="detail-section" id="detail-system">
             <div className="detail-section-heading">
               <p className="eyebrow">Почему система</p>
               <h2>Работает там, где обычно все рассыпается</h2>
@@ -227,7 +227,7 @@ export function ProgramDetailPage({ program, onBack, onChoose }: ProgramDetailPa
             </div>
           </section>
 
-          <section className="detail-coach">
+          <section className="detail-coach" id="detail-coach">
             <div className="detail-coach-copy">
               <p className="eyebrow">С тренером</p>
               <h2>Вы идете с Сашей, а не с безликим списком упражнений</h2>
@@ -265,7 +265,7 @@ export function ProgramDetailPage({ program, onBack, onChoose }: ProgramDetailPa
             </div>
           </section>
 
-          <section className="detail-faq">
+          <section className="detail-faq" id="detail-faq">
             <div className="detail-section-heading align-left">
               <p className="eyebrow">Вопросы</p>
               <h2>Перед стартом</h2>
