@@ -10,17 +10,17 @@ const proofs = [
 
 const photos = [
   {
-    src: assetPath("assets/program-home.png"),
+    src: assetPath("assets/optimized/program-home.webp"),
     alt: "Тренировка с фитнес-резинкой в светлой студии",
     caption: "Домашние тренировки",
   },
   {
-    src: assetPath("assets/program-food.png"),
+    src: assetPath("assets/optimized/program-food.webp"),
     alt: "Сбалансированный обед, бутылка воды и тренировочная резинка",
     caption: "Питание без крайностей",
   },
   {
-    src: assetPath("assets/program-gym.png"),
+    src: assetPath("assets/optimized/program-gym.webp"),
     alt: "Тренировка с гантелями в современном зале",
     caption: "Силовой прогресс",
   },

@@ -37,7 +37,7 @@ export function HeroSection({ onNavigateSection }: HeroSectionProps) {
       </div>
 
       <div className="hero-visual" aria-label="Фото тренера Саши Белоконовой">
-        <img src={assetPath("assets/fit-hero-lunge.png")} alt="Фитнес-тренер выполняет выпад с гантелью" />
+        <img src={assetPath("assets/optimized/fit-hero-lunge.webp")} alt="Фитнес-тренер выполняет выпад с гантелью" />
       </div>
 
       <div className="hero-mobile-cta">
