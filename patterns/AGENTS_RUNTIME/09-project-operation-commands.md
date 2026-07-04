@@ -1,28 +1,5 @@
 ## Project Operation Commands
 
-- Treat `gi docker`, `РіРё РґРѕРєРµСЂ`, and equivalent Docker restart wording as a
-  request to restart the current project's documented Docker or Docker Compose
-  runtime, rebuilding first only when local Docker state requires it. Read
-  project-local Docker/run instructions, Dockerfile or Containerfile,
-  `compose.yaml`, `compose.yml`, `docker-compose*.yml`, container scripts,
-  manifests, service records, and project memory before touching containers. If
-  the project has no Docker/Compose config and no documented Docker run
-  contract, report that Docker is not configured for this project and stop
-  instead of inventing commands. If Docker CLI, Docker Compose, or the Docker
-  engine is unavailable or not running, report that blocker and do not claim a
-  restart. Rebuild before restart when the image is missing, the local Docker
-  contract says to rebuild, Dockerfile/Compose/build-context/dependency
-  manifests changed since the known running image, or freshness cannot be
-  confidently proven. Prefer project-documented commands; otherwise use the
-  narrow project Compose operation, such as `docker compose up -d --build` when
-  rebuilding is needed and `docker compose up -d` or the documented restart
-  command when the existing image is current. Scope all operations to the
-  current project only: do not prune Docker system state, remove volumes, delete
-  images, or stop unrelated containers. After the operation, verify documented
-  container status, health checks, mapped service URLs, and recent logs when
-  failures appear, then report rebuilt/restarted/not-configured/blocked status
-  with evidence.
-
 - Treat `gi prod`, `gi production`, `gi прод`, and `ги прод` as requests to
   publish the current development version of an online service into its
   documented production service folder. Use this only for services that run
@@ -48,6 +25,51 @@
   check and report exactly what was synced, what production-local state was
   preserved, whether the live service was restarted or left running, and any
   unverified risk. Follow `patterns/PROJECT_DEV_PROD_SERVICES.md`.
+- Treat `gi deploy`, `ги деплой`, `gi deploy <method-or-path>`, and
+  `ги деплой <способ-или-путь>` as requests to deploy the current project or site
+  through the explicitly named method, service, saved deploy gateway, or deploy
+  gateway path. If the argument is an absolute or clearly project-local path,
+  treat that path as a user-authorized external deploy gateway and record it as
+  the current project's selected deploy gateway in an ignored local file such as
+  `tools/deploy/deploy-gateway.local.json`; it does not become the active
+  editable source project. Future short deploy commands without a method or path
+  should reuse the saved gateway. Store only local selection metadata there, such
+  as gateway path, entrypoint, source-path parameter, project id, deploy mode,
+  and target name; keep credentials and private remote paths in the gateway's
+  own ignored config or secret store. Before running anything from that gateway,
+  read its local `AGENTS.md`, `COMMANDS.md`, and deploy runbook such as
+  `docs/deploy.md` when present. Prefer the gateway's single documented
+  entrypoint, for example `tools/deploy/deploy.ps1`, and pass the current project
+  root as `-SourcePath` or the gateway's documented source parameter. Pass
+  project id, deploy mode, target name, or hosting-project mapping only when the
+  gateway contract defines them. Do not infer credentials, print secrets, edit
+  the gateway's private local config, run arbitrary helper commands from the
+  gateway, or switch to treating the gateway as the product being deployed. If no
+  argument is supplied and no selected gateway exists, stop and ask the user to
+  make the full first call, for example `gi deploy <method-or-path>` /
+  `ги деплой <способ-или-путь>`. Do not reinterpret a bare first `gi deploy` as
+  `gi prod`, direct FTP upload, a build, or another deployment workflow. If the
+  gateway contract, required entrypoint, source-path parameter, target mapping,
+  or deploy mode is missing, ask one short clarification question instead of
+  guessing.
+- When the user's task explicitly targets preparing or repairing the deploy
+  gateway itself, work in that gateway project and create or update the reusable
+  deploy contract there: `AGENTS.md`, `COMMANDS.md`, a deploy runbook such as
+  `docs/deploy.md`, one documented entrypoint such as
+  `tools/deploy/deploy.ps1`, redacted config examples, and verification or
+  rollback notes. Keep real secrets and private target paths in the gateway's
+  ignored local config or secret store, not in shared instructions or consuming
+  projects.
+- Treat `gi ftp <deploy-hub-path>` and `ги фтп <путь-к-deploy-хабу>` as the
+  FTP/SFTP gateway variant: deploy the current project's configured build output
+  through the user-provided deploy gateway path, using the gateway's documented
+  entrypoint and passing the current project root as the source. Record the path
+  as the current project's selected deploy gateway so later `gi ftp` / `ги фтп`
+  can use it without repeating the path. The gateway owns FTP/SFTP
+  configuration, destination selection, and secret references. Read its local
+  instructions first, do not bypass the gateway by rewriting its private local
+  JSON files, and do not upload directly unless the gateway contract explicitly
+  delegates that operation back to the current project.
 - Treat `gi ftp`, `ги фтп`, `gi ftp push`, `ги фтп пуш`, `gi upload ftp`,
   `gi deploy ftp`, and `gi залей на фтп` as requests to upload the current
   project's configured build output to FTP, FTPS, or SFTP. Treat
@@ -67,6 +89,17 @@
   store only discovery metadata and secret references such as environment
   variable names. Keep project-specific deploy settings in the separate
   project-local config file rather than shared instructions or chat history.
+  Treat upload stalls, hangs, repeated timeouts, and failed stream opens as
+  failed FTP/FTPS transfers. When FTP/FTPS upload fails or is unreliable,
+  immediately check the selected service contract, project-local config, and
+  user-provided details for an authorized SSH-based SFTP route to the same
+  remote deploy folder. If the needed SSH host, port, user, and credential
+  reference are available, switch to SFTP over SSH before more FTP/FTPS upload
+  variants and report that fallback. If they are missing, report the exact
+  missing SFTP details instead of inventing credentials or retrying the same
+  failing FTP path. Do not disable TLS certificate validation or accept invalid
+  FTPS certificates as a routine fallback unless the deploy contract or current
+  user message explicitly authorizes that degraded security path.
   Prefer `tools/deploy/ftp.local.example.json` only as a redacted shape. Do not
   commit hostnames, usernames, passwords, tokens, private keys, or private
   remote paths unless project policy explicitly marks them non-secret. Follow
@@ -110,6 +143,28 @@
   their hosting or production deploy contract and are not restarted by local
   `gi reboot` unless project-local production instructions explicitly define
   that behavior.
+- Treat `gi docker`, `ги докер`, and equivalent Docker restart wording as a
+  request to restart the current project's documented Docker or Docker Compose
+  runtime, rebuilding first only when local Docker state requires it. Read
+  project-local Docker/run instructions, Dockerfile or Containerfile,
+  `compose.yaml`, `compose.yml`, `docker-compose*.yml`, container scripts,
+  manifests, service records, and project memory before touching containers. If
+  the project has no Docker/Compose config and no documented Docker run
+  contract, report that Docker is not configured for this project and stop
+  instead of inventing commands. If Docker CLI, Docker Compose, or the Docker
+  engine is unavailable or not running, report that blocker and do not claim a
+  restart. Rebuild before restart when the image is missing, the local Docker
+  contract says to rebuild, Dockerfile/Compose/build-context/dependency
+  manifests changed since the known running image, or freshness cannot be
+  confidently proven. Prefer project-documented commands; otherwise use the
+  narrow project Compose operation, such as `docker compose up -d --build` when
+  rebuilding is needed and `docker compose up -d` or the documented restart
+  command when the existing image is current. Scope all operations to the
+  current project only: do not prune Docker system state, remove volumes, delete
+  images, or stop unrelated containers. After the operation, verify documented
+  container status, health checks, mapped service URLs, and recent logs when
+  failures appear, then report rebuilt/restarted/not-configured/blocked status
+  with evidence.
 - Treat `gi first test`, `gi первый тест`, and `ги первый тест` as requests to
   verify the current application's first-launch experience by resetting only
   documented project-owned app cache, generated state, temporary first-run
@@ -239,17 +294,21 @@
   These are inspection commands by default; do not create external services,
   install heavy dependencies, upload data, or index private sources unless the
   user explicitly asks and project-local rules allow it.
-- Treat `gi rebuild` and `ги ребилд` as requests to rebuild the current project
-  or application only, producing the documented build output such as an
-  executable, package, or other artifact. Read project-local build or rebuild
-  instructions, manifests, scripts, and packaging metadata before running the
+- Treat `gi build`, `gi собрать`, `ги билд`, `ги собрать`, `gi rebuild`, and
+  `ги ребилд` as requests to build or rebuild the current project or
+  application only, producing the documented release/upload-ready output such
+  as a static `dist/`, bundle, executable, package, or other artifact. Read
+  project-local build or rebuild instructions, manifests, scripts, hosting
+  base-path/public-path config, and packaging metadata before running the
   documented command.
-  Do not treat `gi rebuild` as dependency restore, tests-only verification, or
-  any RAG/GI tooling rebuild, and do not combine it with a RAG rebuild unless
-  the user explicitly asks for both. If no project rebuild contract exists, ask
-  one short clarification question instead of inventing a command. Use
-  `gi tools rebuild` or `gi rag rebuild` when the GI/RAG layer itself must be
-  rebuilt.
+  Do not treat these project build commands as dependency restore, tests-only
+  verification, FTP/SFTP upload, production publication, installer packaging,
+  or any RAG/GI tooling rebuild, and do not combine them with a RAG rebuild
+  unless the user explicitly asks for both. If no project build/rebuild
+  contract exists, ask one short clarification question instead of inventing a
+  command. Use `gi ftp` for upload, `gi prod` for documented production
+  publication, `gi install` for installer packaging, and `gi tools rebuild` or
+  `gi rag rebuild` when the GI/RAG layer itself must be rebuilt.
 - Treat `gi tools rebuild`, `gi rag rebuild`, `ги тулс ребилд`,
   `ги раг ребилд`, and equivalent full GI/RAG rebuild wording as requests to
   rebuild the current project's entire configured GI/RAG project-memory

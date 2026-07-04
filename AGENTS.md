@@ -36,17 +36,14 @@ implemented against each goal criterion and list remaining gaps as blockers.
   known mojibake form such as `РіРё ...`, treat it as a concrete task even when
   the message is short. First read `COMMANDS.md` when present, then read every
   runtime module routed to that command before acting.
-- For state-changing GI commands that start, stop, restart, rebuild, deploy,
+- For state-changing GI commands that start, stop, build, restart, rebuild, deploy,
   test, install, reset, update, commit, push, or manage task-manager state, do
   not execute from memory, old chat examples, or a command name alone. If the
   command's routed module is unavailable, stop and report the missing path.
-- For `gi restart`, `gi reboot`, `ги рестарт`, `ги ребут`, and equivalent
+- For `gi restart`, `gi reboot`, `gi docker`, `ги рестарт`, `ги ребут`, and equivalent
   aliases, `patterns/AGENTS_RUNTIME/09-project-operation-commands.md` is
-  mandatory context before any process inspection, stop, start, or success
-  report.
-- For `gi docker`, `РіРё РґРѕРєРµСЂ`, and equivalent aliases,
-  `patterns/AGENTS_RUNTIME/09-project-operation-commands.md` is mandatory
-  context before any Docker inspection, build, stop, start, or success report.
+  mandatory context before any process inspection, Docker build, stop, start,
+  or success report.
 - For broad or unclear work, read `patterns/AGENTS_RUNTIME/01-purpose.md`,
   `patterns/AGENTS_RUNTIME/03-rule-precedence.md`,
   `patterns/AGENTS_RUNTIME/06-tool-usage-and-token-economy.md`, and the most
@@ -96,11 +93,10 @@ Use the RAG startup flow and retrieve only task-relevant context.
 - Config-service, service guide/contract lookup, task manager commands,
   manager-backed and local sprint commands, and web-service port registration:
   `patterns/AGENTS_RUNTIME/08-config-service-and-task-manager.md`
-- Dev/prod online service publication, FTP deploy, restart/reboot, first test,
-  full test, default reset, installer packaging, SQL/vector inspection, and
-  project/RAG rebuild commands:
+- Dev/prod online service publication, FTP deploy, build/rebuild, restart/reboot,
+  first test, full test, default reset, installer packaging, SQL/vector
+  inspection, and project/RAG rebuild commands:
   `patterns/AGENTS_RUNTIME/09-project-operation-commands.md`
-- Docker/Compose restart commands: `patterns/AGENTS_RUNTIME/09-project-operation-commands.md`
 - Nested repositories, private local app data, product-plan intent signals, and
   missing required entities:
   `patterns/AGENTS_RUNTIME/10-private-scope-and-missing-context.md`
@@ -125,6 +121,12 @@ crawled/downloaded files, large logs, model outputs, build artifacts, export
 bundles, or run datasets in `tools/project-memory/`. Use a project-local
 artifact/evidence/output/data/docs-asset location and keep only compact
 manifests, summaries, checksums, or links in project memory when needed.
+
+Use `tools/` for durable development tooling, automation scripts, adapters,
+bootstrap commands, deployment helpers, and redacted example manifests. Do not
+use `tools/` as the default destination for generated product output,
+selected-run artifacts, uploaded site contents, screenshots, raw exports, build
+bundles, downloaded datasets, or one-off work results.
 
 General project documentation lives in `README.md`, `docs/`, and the runbook.
 Keep overview, visible functionality, stack, commands, operations, and

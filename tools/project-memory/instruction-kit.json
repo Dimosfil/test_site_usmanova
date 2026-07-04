@@ -1,5 +1,5 @@
 ﻿{
-    "instruction_kit_version":  "2026.07.03.1",
+    "instruction_kit_version":  "2026.07.04.5",
     "source":  "https://github.com/Dimosfil/general-instructions.git",
     "installed_at":  "2026-07-03T07:47:21+03:00",
     "update_check":  {
@@ -204,7 +204,12 @@
                                "2026.06.30.2__add_api_key_secret_safety",
                                "2026.07.01.1__classify_development_vs_refactor",
                                "2026.07.02.1__require_project_identity_before_writes",
-                               "2026.07.03.1__add_gi_docker_command"
+                               "2026.07.03.1__add_gi_docker_command",
+                               "2026.07.04.1__prefer_sftp_fallback_for_ftp_upload_failures",
+                               "2026.07.04.2__add_gi_build_command",
+                               "2026.07.04.3__log_user_reported_agent_bugs_and_tools_artifact_boundary",
+                               "2026.07.04.4__add_deploy_gateway_command",
+                               "2026.07.04.5__save_selected_deploy_gateway"
                            ],
-    "last_update_check_at":  "2026-07-04T08:36:07+03:00"
+    "last_update_check_at":  "2026-07-04T13:26:14+03:00"
 }
