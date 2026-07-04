@@ -32,6 +32,13 @@ implemented against each goal criterion and list remaining gaps as blockers.
 - Read only the modules needed for the current request.
 - Before acting on a concrete task, select and read the matching module(s);
   this entrypoint alone is enough only for greetings or status-neutral replies.
+- On the first concrete task in a new chat/session, before task-specific
+  startup restore, planning, implementation, or command execution, perform a
+  quiet GI instruction update check. Use local instruction-kit metadata and the
+  accepted shared-instruction source, read only accepted version and migration
+  artifacts, apply pending accepted migrations when the project update contract
+  allows it, and report only a compact result or blocker. Do not read
+  `updates/` for this startup check.
 - If the request contains a GI chat command such as `gi ...`, `ги ...`, or a
   known mojibake form such as `РіРё ...`, treat it as a concrete task even when
   the message is short. First read `COMMANDS.md` when present, then read every

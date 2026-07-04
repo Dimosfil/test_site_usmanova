@@ -1,5 +1,5 @@
 ﻿{
-    "instruction_kit_version":  "2026.07.04.5",
+    "instruction_kit_version":  "2026.07.04.7",
     "source":  "https://github.com/Dimosfil/general-instructions.git",
     "installed_at":  "2026-07-03T07:47:21+03:00",
     "update_check":  {
@@ -209,7 +209,9 @@
                                "2026.07.04.2__add_gi_build_command",
                                "2026.07.04.3__log_user_reported_agent_bugs_and_tools_artifact_boundary",
                                "2026.07.04.4__add_deploy_gateway_command",
-                               "2026.07.04.5__save_selected_deploy_gateway"
+                               "2026.07.04.5__save_selected_deploy_gateway",
+                               "2026.07.04.6__auto_register_gateway_ftp_projects",
+                               "2026.07.04.7__add_gi_error_intake_and_startup_update_check"
                            ],
-    "last_update_check_at":  "2026-07-04T13:26:14+03:00"
+    "last_update_check_at":  "2026-07-04T16:30:27+03:00"
 }

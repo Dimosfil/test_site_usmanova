@@ -70,6 +70,19 @@
   instructions first, do not bypass the gateway by rewriting its private local
   JSON files, and do not upload directly unless the gateway contract explicitly
   delegates that operation back to the current project.
+- When a deploy gateway accepts project registration, a `gi ftp <deploy-hub-path>`
+  run for an unmapped current project should use the current project folder name
+  as the default project id, derive the destination from the gateway's documented
+  naming convention, register or update that project in the gateway-owned
+  deploy registry, and continue through the gateway entrypoint. The project
+  agent should not ask the user to choose a remote folder when the gateway
+  contract defines deterministic registration. The gateway must also record
+  enough non-secret metadata for later hub or index maintenance, such as project
+  id, public URL or target name, source identity, deploy artifact path, deploy
+  time/status, and whether a visible project card is pending. If registration,
+  target provisioning, or artifact selection fails, stop with that gateway
+  blocker instead of falling back to a root/default remote path or uploading the
+  whole repository.
 - Treat `gi ftp`, `ги фтп`, `gi ftp push`, `ги фтп пуш`, `gi upload ftp`,
   `gi deploy ftp`, and `gi залей на фтп` as requests to upload the current
   project's configured build output to FTP, FTPS, or SFTP. Treat
