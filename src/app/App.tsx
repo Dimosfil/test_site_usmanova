@@ -10,7 +10,7 @@ import { NutritionSection } from "../widgets/NutritionSection";
 import { ProgramsSection } from "../widgets/ProgramsSection";
 import { TrustSection } from "../widgets/TrustSection";
 import type { LogoId, ProgramId, ThemeId } from "../shared/config/siteContent";
-import { findProgram, logos, programs, themes } from "../shared/config/siteContent";
+import { findProgram, programs } from "../shared/config/siteContent";
 
 const defaultProgram = programs[0].id;
 const programIds = new Set(programs.map((program) => program.id));
@@ -19,7 +19,7 @@ const detailSectionIds = new Set(["top", "detail-fit", "detail-contents", "offer
 const scrollOffset = 88;
 const minScrollDuration = 760;
 const maxScrollDuration = 1500;
-const siteSettingsStorageKey = "sasha-fit-site-settings";
+const globalSiteSettings: SavedSiteSettings = { logo: "studio", theme: "sky" };
 
 type SavedSiteSettings = {
   logo: LogoId;
@@ -57,38 +57,8 @@ function easeInOutCubic(progress: number) {
   return progress < 0.5 ? 4 * progress * progress * progress : 1 - Math.pow(-2 * progress + 2, 3) / 2;
 }
 
-function isLogoId(value: string): value is LogoId {
-  return logos.some((logo) => logo.id === value);
-}
-
-function isThemeId(value: string): value is ThemeId {
-  return themes.some((theme) => theme.id === value);
-}
-
 function loadSavedSettings(): SavedSiteSettings {
-  if (typeof window === "undefined") {
-    return { logo: "core", theme: "rose" };
-  }
-
-  try {
-    const savedSettings = window.localStorage.getItem(siteSettingsStorageKey);
-
-    if (!savedSettings) {
-      return { logo: "core", theme: "rose" };
-    }
-
-    const parsedSettings = JSON.parse(savedSettings) as Partial<SavedSiteSettings>;
-    const logo = parsedSettings.logo && isLogoId(parsedSettings.logo) ? parsedSettings.logo : "core";
-    const theme = parsedSettings.theme && isThemeId(parsedSettings.theme) ? parsedSettings.theme : "rose";
-
-    return { logo, theme };
-  } catch {
-    return { logo: "core", theme: "rose" };
-  }
-}
-
-function saveSettings(settings: SavedSiteSettings) {
-  window.localStorage.setItem(siteSettingsStorageKey, JSON.stringify(settings));
+  return globalSiteSettings;
 }
 
 export function App() {
@@ -241,8 +211,15 @@ export function App() {
     window.requestAnimationFrame(() => window.scrollTo(0, 0));
   }
 
-  function returnToPrograms() {
+  function navigateToPrograms() {
     navigateToSection("programs");
+  }
+
+  function navigateToLandingTop() {
+    window.cancelAnimationFrame(scrollAnimationRef.current);
+    setActiveProgram(null);
+    setPendingSection("top");
+    updateHash("#top");
   }
 
   function chooseProgramFromDetails() {
@@ -255,7 +232,6 @@ export function App() {
 
   function applySiteSettings(settings: SavedSiteSettings) {
     setSavedSettings(settings);
-    saveSettings(settings);
   }
 
   const activeProgramData = activeProgram ? findProgram(activeProgram) : null;
@@ -271,14 +247,15 @@ export function App() {
         onLogoPreview={setLogo}
         onSettingsSave={applySiteSettings}
         onThemePreview={setTheme}
-        onNavigatePrograms={returnToPrograms}
+        onNavigateHome={navigateToLandingTop}
+        onNavigatePrograms={navigateToPrograms}
         onNavigateSection={navigateToSection}
       />
       {activeProgramData ? (
         <div className="page-view" key={`program-${activeProgramData.id}`}>
           <ProgramDetailPage
             program={activeProgramData}
-            onBack={returnToPrograms}
+            onBack={navigateToLandingTop}
             onChoose={chooseProgramFromDetails}
             onShowOffers={showProgramOffers}
           />

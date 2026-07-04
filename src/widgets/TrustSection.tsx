@@ -1,3 +1,4 @@
+import { assetPath } from "../shared/lib/assets";
 import { SectionHeading } from "../shared/ui/SectionHeading";
 
 const proofs = [
@@ -9,17 +10,17 @@ const proofs = [
 
 const photos = [
   {
-    src: "/assets/program-home.png",
+    src: assetPath("assets/program-home.png"),
     alt: "Тренировка с фитнес-резинкой в светлой студии",
     caption: "Домашние тренировки",
   },
   {
-    src: "/assets/program-food.png",
+    src: assetPath("assets/program-food.png"),
     alt: "Сбалансированный обед, бутылка воды и тренировочная резинка",
     caption: "Питание без крайностей",
   },
   {
-    src: "/assets/program-gym.png",
+    src: assetPath("assets/program-gym.png"),
     alt: "Тренировка с гантелями в современном зале",
     caption: "Силовой прогресс",
   },

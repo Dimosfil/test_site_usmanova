@@ -44,6 +44,9 @@ implemented against each goal criterion and list remaining gaps as blockers.
   aliases, `patterns/AGENTS_RUNTIME/09-project-operation-commands.md` is
   mandatory context before any process inspection, stop, start, or success
   report.
+- For `gi docker`, `РіРё РґРѕРєРµСЂ`, and equivalent aliases,
+  `patterns/AGENTS_RUNTIME/09-project-operation-commands.md` is mandatory
+  context before any Docker inspection, build, stop, start, or success report.
 - For broad or unclear work, read `patterns/AGENTS_RUNTIME/01-purpose.md`,
   `patterns/AGENTS_RUNTIME/03-rule-precedence.md`,
   `patterns/AGENTS_RUNTIME/06-tool-usage-and-token-economy.md`, and the most
@@ -97,6 +100,7 @@ Use the RAG startup flow and retrieve only task-relevant context.
   full test, default reset, installer packaging, SQL/vector inspection, and
   project/RAG rebuild commands:
   `patterns/AGENTS_RUNTIME/09-project-operation-commands.md`
+- Docker/Compose restart commands: `patterns/AGENTS_RUNTIME/09-project-operation-commands.md`
 - Nested repositories, private local app data, product-plan intent signals, and
   missing required entities:
   `patterns/AGENTS_RUNTIME/10-private-scope-and-missing-context.md`

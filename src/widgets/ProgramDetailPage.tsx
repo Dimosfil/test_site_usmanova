@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { type FormEvent, useEffect, useRef, useState } from "react";
 import {
   ArrowLeft,
   BadgePercent,
@@ -9,8 +9,9 @@ import {
   ShieldCheck,
   Sparkles,
   Target,
+  X,
 } from "lucide-react";
-import type { Program } from "../shared/config/siteContent";
+import type { DetailOffer, Program } from "../shared/config/siteContent";
 import {
   detailAssurances,
   detailCoachFacts,
@@ -87,6 +88,102 @@ function OfferCountdown() {
   );
 }
 
+type CheckoutModalProps = {
+  offer: DetailOffer;
+  programTitle: string;
+  onClose: () => void;
+};
+
+function CheckoutModal({ offer, programTitle, onClose }: CheckoutModalProps) {
+  const nameInputRef = useRef<HTMLInputElement>(null);
+  const [statusText, setStatusText] = useState("");
+
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+
+    document.body.style.overflow = "hidden";
+    nameInputRef.current?.focus();
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onClose]);
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+
+    if (!form.checkValidity()) {
+      setStatusText("Заполните имя, эл. адрес, телефон и согласие.");
+      form.reportValidity();
+      return;
+    }
+
+    const formData = new FormData(form);
+    const name = String(formData.get("name")).trim();
+
+    setStatusText(`${name}, заявка на тариф «${offer.title}» принята.`);
+    form.reset();
+  }
+
+  return (
+    <div
+      className="checkout-modal-backdrop"
+      role="presentation"
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) {
+          onClose();
+        }
+      }}
+    >
+      <div className="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkout-modal-title">
+        <button className="checkout-close" type="button" aria-label="Закрыть форму" onClick={onClose}>
+          <X size={20} aria-hidden />
+        </button>
+
+        <form className="checkout-form" noValidate onSubmit={handleSubmit}>
+          <div className="checkout-summary" id="checkout-modal-title">
+            <span>Метод Белоконовой. Тариф «{offer.title}»:</span>
+            <s>{offer.oldPrice}</s>
+            <strong>{offer.price}</strong>
+          </div>
+
+          <input ref={nameInputRef} name="name" type="text" placeholder="Введите ваше имя" autoComplete="name" required />
+          <input name="email" type="email" placeholder="Введите ваш эл. адрес" autoComplete="email" required />
+          <input name="phone" type="tel" placeholder="Введите ваш телефон" autoComplete="tel" required />
+          <input name="program" type="hidden" value={programTitle} />
+          <input name="offer" type="hidden" value={offer.title} />
+
+          <button className="checkout-submit" type="submit">
+            Продолжить
+          </button>
+
+          <label className="checkout-consent">
+            <input name="consent" type="checkbox" defaultChecked required />
+            <span>
+              Я согласна на получение информационных и маркетинговых рассылок (вы в любой момент можете отказаться от
+              получения писем в личном кабинете)
+            </span>
+          </label>
+
+          <p className="checkout-status" role="status" aria-live="polite">
+            {statusText}
+          </p>
+        </form>
+      </div>
+    </div>
+  );
+}
+
 type ProgramDetailPageProps = {
   program: Program;
   onBack: () => void;
@@ -97,6 +194,7 @@ type ProgramDetailPageProps = {
 export function ProgramDetailPage({ program, onBack, onChoose, onShowOffers }: ProgramDetailPageProps) {
   const detail = findProgramDetails(program.id);
   const Icon = program.Icon;
+  const [selectedOffer, setSelectedOffer] = useState<DetailOffer | null>(null);
 
   return (
     <main className="program-detail-page" id="top">
@@ -270,7 +368,7 @@ export function ProgramDetailPage({ program, onBack, onChoose, onShowOffers }: P
                       </li>
                     ))}
                   </ul>
-                  <Button className="detail-offer-button" onClick={onChoose}>
+                  <Button className="detail-offer-button" onClick={() => setSelectedOffer(offer)}>
                     Забрать формат
                   </Button>
                 </article>
@@ -361,6 +459,9 @@ export function ProgramDetailPage({ program, onBack, onChoose, onShowOffers }: P
           </section>
         </div>
       </section>
+      {selectedOffer ? (
+        <CheckoutModal offer={selectedOffer} programTitle={program.title} onClose={() => setSelectedOffer(null)} />
+      ) : null}
     </main>
   );
 }

@@ -1,4 +1,5 @@
 import { ClipboardList } from "lucide-react";
+import { assetPath } from "../shared/lib/assets";
 import { Button } from "../shared/ui/Button";
 
 type HeroSectionProps = {
@@ -36,7 +37,27 @@ export function HeroSection({ onNavigateSection }: HeroSectionProps) {
       </div>
 
       <div className="hero-visual" aria-label="Фото тренера Саши Белоконовой">
-        <img src="/assets/fit-hero-lunge.png" alt="Фитнес-тренер выполняет выпад с гантелью" />
+        <img src={assetPath("assets/fit-hero-lunge.png")} alt="Фитнес-тренер выполняет выпад с гантелью" />
+      </div>
+
+      <div className="hero-mobile-cta">
+        <div className="hero-actions">
+          <a
+            className="button primary"
+            href="#programs"
+            onClick={(event) => {
+              event.preventDefault();
+              onNavigateSection("programs");
+            }}
+          >
+            Выбрать программу
+          </a>
+          <Button variant="secondary" onClick={() => onNavigateSection("form")}>
+            <ClipboardList size={18} aria-hidden />
+            Быстрый подбор
+          </Button>
+        </div>
+        <p className="microcopy">Подбор бесплатный. Ответ появится прямо на странице.</p>
       </div>
     </section>
   );

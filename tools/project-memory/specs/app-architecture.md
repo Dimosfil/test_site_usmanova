@@ -26,7 +26,10 @@ program selection, lead-form validation, and confirmation messaging.
 - Generated project-bound photos are stored in `public/assets/` with descriptive
   filenames such as `fit-hero-lunge.png`, `fit-home-band.png`,
   `fit-gym-dumbbells.png`, `fit-nutrition-table.png`,
-  `fit-self-care-portrait.png`, and `fit-self-care-full.png`.
+  `fit-self-care-portrait.png`, `fit-self-care-full.png`,
+  `fit-glutes-core.png`, `fit-express-start.png`,
+  `fit-postpartum-return.png`, `fit-ai-nutrition.png`, `fit-meal-prep.png`,
+  `fit-self-acceptance.png`, and `fit-wellness-journal.png`.
 - Do not reference generated images from the default Codex generated-images
   folder; copy final selected assets into the project before using them.
 

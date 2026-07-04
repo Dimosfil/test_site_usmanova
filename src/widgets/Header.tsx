@@ -1,3 +1,5 @@
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
 import { SiteSettingsMenu } from "../features/site-settings/SiteSettingsMenu";
 import type { LogoId, ThemeId } from "../shared/config/siteContent";
 import { logos } from "../shared/config/siteContent";
@@ -10,6 +12,7 @@ type HeaderProps = {
   onLogoPreview: (logo: LogoId) => void;
   onSettingsSave: (settings: { logo: LogoId; theme: ThemeId }) => void;
   onThemePreview: (theme: ThemeId) => void;
+  onNavigateHome: () => void;
   onNavigateSection: (sectionId: string) => void;
   onNavigatePrograms: () => void;
   isProgramDetail?: boolean;
@@ -43,12 +46,24 @@ export function Header({
   onLogoPreview,
   onSettingsSave,
   onThemePreview,
+  onNavigateHome,
   onNavigateSection,
   onNavigatePrograms,
   isProgramDetail = false,
 }: HeaderProps) {
   const navItems = isProgramDetail ? detailNavItems : landingNavItems;
   const logo = logos.find((item) => item.id === activeLogo) ?? logos[0];
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  function navigateAndClose(sectionId: string) {
+    onNavigateSection(sectionId);
+    setIsMenuOpen(false);
+  }
+
+  function navigateProgramsAndClose() {
+    onNavigatePrograms();
+    setIsMenuOpen(false);
+  }
 
   return (
     <header className="site-header" aria-label="Главная навигация">
@@ -58,20 +73,32 @@ export function Header({
         aria-label="Саша Белоконова, на первый экран"
         onClick={(event) => {
           event.preventDefault();
-          onNavigateSection("top");
+          onNavigateHome();
+          setIsMenuOpen(false);
         }}
       >
         <span className={`brand-mark logo-mark logo-${logo.id}`}>{logo.mark}</span>
         <span>Саша Белоконова</span>
       </a>
 
-      <nav className="main-nav" aria-label="Разделы сайта">
+      <button
+        aria-controls="main-nav"
+        aria-expanded={isMenuOpen}
+        aria-label={isMenuOpen ? "Закрыть меню" : "Открыть меню"}
+        className="nav-menu-toggle"
+        onClick={() => setIsMenuOpen((current) => !current)}
+        type="button"
+      >
+        {isMenuOpen ? <X size={22} aria-hidden /> : <Menu size={22} aria-hidden />}
+      </button>
+
+      <nav className={`main-nav${isMenuOpen ? " is-open" : ""}`} id="main-nav" aria-label="Разделы сайта">
         {isProgramDetail ? (
           <a
             href="#programs"
             onClick={(event) => {
               event.preventDefault();
-              onNavigatePrograms();
+              navigateProgramsAndClose();
             }}
           >
             Программы
@@ -83,7 +110,7 @@ export function Header({
             key={item.id}
             onClick={(event) => {
               event.preventDefault();
-              onNavigateSection(item.id);
+              navigateAndClose(item.id);
             }}
           >
             {item.label}

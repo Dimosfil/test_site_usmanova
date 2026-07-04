@@ -26,7 +26,7 @@ stack facts, commands, runtime assumptions, and operational notes here.
 | Build/package | Vite | `package.json`, `vite.config.ts` | Builds static output into `dist/` |
 | Test/quality | TypeScript build and manual smoke checks | `package.json`, `tools/AGENT_RUNBOOK.md` | No persistent browser test yet |
 | Icons | lucide-react | `package.json`, `src/` imports | Used for button and card affordances |
-| Deployment/runtime | Static hosting after Vite build | `npm run build` | Serve generated `dist/` output |
+| Deployment/runtime | Static hosting after Vite build; optional FTP upload | `npm run build`, `tools/deploy/upload-ftp.ps1` | Serve generated `dist/` output; FTP target is configured in ignored `tools/deploy/ftp.local.json` |
 
 ## Commands
 
@@ -36,14 +36,16 @@ stack facts, commands, runtime assumptions, and operational notes here.
 | Run | `npm run dev` | `README.md` |
 | Test | Manual browser smoke | `tools/AGENT_RUNBOOK.md` |
 | Build | `npm run build` | `package.json` |
+| FTP deploy | `npm run deploy:ftp` | `package.json`, `tools/deploy/upload-ftp.ps1` |
 
 ## External Services
 
 | Service | Role | Evidence | Boundary |
 | --- | --- | --- | --- |
-| None | Not used | Repository contents | Keep future secrets out of source |
+| FTP hosting | Optional static-site upload target | `tools/deploy/ftp.local.example.json` | Keep real hostnames, usernames, passwords, and private remote paths in ignored local config or environment variables |
 
 ## Gaps
 
 - No persistent automated browser test is committed.
-- No backend or production deployment contract is configured.
+- No backend is configured.
+- FTP deploy is configured locally through an ignored config file; no public production host is documented.
